@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 
 class SV_process():
-    #x[t] is state: stochastic volatility path
+    #x[t] is state: log volatility path
     #y[t] is measurement: log of price returns ( log(S[t]/S[t-1]) )
     #note: this model is without stock price drift
 
@@ -42,15 +42,15 @@ class SV_process():
 
 #model params
 
-N = 50
-T = 50
+N = 100
+T = 100
 mu = 0
 sigma = 0.7
-kappa = 0.5
+kappa = 0.9
 xnoisemean = 0
 xnoisevar = 0.02
 ynoisemean = 0
-ynoisevar = 0.04
+ynoisevar = 0.02
 
 model = SV_process(mu, sigma, kappa)
 modelpath = model.path(xnoisemean, xnoisevar, ynoisemean, ynoisevar, N)
@@ -124,6 +124,16 @@ for t in range(0, N):
 plt.scatter(particlesplotx, particlesploty)
 plt.plot(Tvec, truestate, 'b')
 plt.plot(Tvec, measurement, 'r')
+plt.show()
+
+#plotting particle average
+particleavg = np.zeros(N)
+for t in range(0,N):
+    particleavg[t] = np.mean(particles[:,t])
+
+plt.plot(Tvec, measurement, 'r')
+plt.plot(Tvec, truestate, 'b')
+plt.plot(Tvec, particleavg, 'g')
 plt.show()
 
 

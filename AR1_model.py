@@ -150,6 +150,17 @@ plt.plot(Tvec, truestate, 'b')
 plt.plot(Tvec, measurement, 'r')
 plt.show()
 
+#plotting particle average
+particleavg = np.zeros(N)
+for t in range(0,N):
+    particleavg[t] = np.mean(particles[:,t])
+
+plt.plot(Tvec, measurement, 'r')
+plt.plot(Tvec, truestate, 'b')
+plt.plot(Tvec, particleavg, 'g')
+plt.show()
+
+
 #tracking accuracy of the PF
 error = np.zeros((n,N))
 errorT = np.zeros(N)
@@ -160,3 +171,4 @@ for t in range(0,N):
 
 plt.plot(Tvec, errorT, 'g')
 plt.show()
+
